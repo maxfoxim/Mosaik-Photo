@@ -48,7 +48,7 @@ def zufalls_bild(zufallsarray,orignal_array):
     
 
 #Welcher Ordner mit Mosaikbildern eingelesen soll, danach nur JPEG Dateien einlesen die kein "klein" im Namen haben
-Ordner="mosaik_pictures"
+Ordner="mosaik_pictures_private"
 JPG_Dateien_Roh=os.listdir(Ordner)
 JPG_Dateien=[i for i in JPG_Dateien_Roh if i.find("JPEG")>=0 or i.find("JPG")>=0 or i.find("jpeg")>=0 or i.find("jpg")>=0] #ds_store Datei rauslöschen
 print("Nur JPEGs",len(JPG_Dateien),JPG_Dateien)
@@ -59,10 +59,10 @@ JPG_Dateien_gross.sort()
 print("Dateien_gross(ohne _klein):",len(JPG_Dateien_gross),JPG_Dateien_gross)
 
 # Hauptbild das aus Mosaiken bestehen soll
-Datei="test.jpg"
+Datei="Emilia.jpg"
 Neu_Konvertieren=True # Mosaikbilder verkleinern
 bilder_anzahl=70 # Anzahl Bilder in x UND y Richtung, also insgesamt bilder_anzahl**2
-
+Background_Color=(255, 255, 255)
 
 Image_Einfuegen = Image.open(Datei)
 #Pixelwerte automatisch bestimmen
@@ -178,7 +178,8 @@ for i in range(gesamt_anzahl_bilder):
     
     #Hintergrund der rein weiß ist, auch mit weiß überlagern
     if helligkeiten[i]>254:
-        Image_Einfuegen = Image.open(Ordner+"/"+"weiss_klein.JPEG")
+        #Image_Einfuegen = Image.open(Ordner+"/"+"weiss_klein.JPEG") #spezielles Hintergrundbild
+        Image_Einfuegen = Image.new("RGB", (800, 1280), Background_Color)
     else:
         #Image_Einfuegen = Image.open(Datei)
         Image_Einfuegen=Image.open(Datei[:-5]+".JPEG")
@@ -208,5 +209,6 @@ for i in range(gesamt_anzahl_bilder):
 
 #image_Org.show()
 #Finales Bild speichern
-image_Org.save("Final_"+str(bilder_anzahl)+".jpg",dpi=(300, 300)) 
+#image_Org.save("Final_"+str(bilder_anzahl)+".jpg",dpi=(300, 300)) 
+image_Org.save("Private.jpg",dpi=(300, 300)) 
 
